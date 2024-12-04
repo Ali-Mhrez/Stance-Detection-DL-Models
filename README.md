@@ -121,5 +121,6 @@ It is possible to further improve the performance of the models on this classifi
 - TensorFlow 2.17.1
 - Keras 3.5.0
 - Matplotlib 3.8.0
+- Scikit-learn 1.5.2
 - Gensim 4.3.3
 - PyArabic 0.6.15
