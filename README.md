@@ -113,3 +113,13 @@ It is possible to further improve the performance of the models on this classifi
 1. **Class Imbalance**: techniques like class weighting or oversampling could be explored to address this imbalance.
 2. **Hyperparameter Tuning**: Conduct a thorough hyperparameter search to optimize the performance of each model.
 3. **Transfer Learning**: Leverage pre-trained models from large language models or other relevant domains to improve performance.
+
+## Software/Libraries:
+
+- Python 3.10.12
+- NumPy 1.26.4
+- TensorFlow 2.17.1
+- Keras 3.5.0
+- Matplotlib 3.8.0
+- Gensim 4.3.3
+- PyArabic 0.6.15
