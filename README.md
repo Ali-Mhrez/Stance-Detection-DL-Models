@@ -77,8 +77,8 @@ The following results are averages over five runs for each experiment.
 
 | Model | Accuracy | Agree | Disagree | Discuss | Unrelated | Macro f1-score |
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|
-| Random | 0.239 | 0.220 | 0.169 | 0.154 | 0.327 | 0.218 |
-| Majority | 0.517 | 0.000 | 0.000 | 0.000 | 0.681 | 0.170 |
+| Random voting | 0.239 | 0.220 | 0.169 | 0.154 | 0.327 | 0.218 |
+| Majority voting | 0.517 | 0.000 | 0.000 | 0.000 | 0.681 | 0.170 |
 | MLP | **0.781** | **0.760** | **0.738** | **0.513** | **0.846** | **0.714** |
 | CNN | 0.766 | 0.731 | 0.730 | 0.479 | 0.833 | 0.693 |
 | BiLSTM | 0.737 | 0.699 | 0.657 | 0.465 | 0.822 | 0.661 |
@@ -90,8 +90,8 @@ The following results are averages over five runs for each experiment.
 
 | Model | Accuracy | Agree | Disagree | Discuss | Unrelated | Macro f1-score |
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|
-| Random | 0.248 | 0.230 | 0.156 | 0.160 | 0.336 | 0.221 |
-| Majority | 0.554 | 0.000 | 0.000 | 0.000 | 0.713 | 0.178 |
+| Random voting | 0.248 | 0.230 | 0.156 | 0.160 | 0.336 | 0.221 |
+| Majority voting | 0.554 | 0.000 | 0.000 | 0.000 | 0.713 | 0.178 |
 | MLP | 0.824 | 0.818 | **0.767** | 0.425 | 0.886 | **0.724** |
 | CNN | **0.825** | **0.822** | 0.740 | 0.406 | **0.895** | 0.716 |
 | BiLSTM | 0.792 | 0.774 | 0.710 | 0.392 | 0.869 | 0.686 |
