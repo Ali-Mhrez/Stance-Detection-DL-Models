@@ -66,15 +66,24 @@ The dataset is already divided into: Training, Validation, Testing sets.
       <thead>
             <th>Model</th>
             <th colspan=2>Layers</th>
+            <th>Training Hyperparameters</th>
       </thead>
       <tbody>
             <tr>
                   <td>MLP</td>
                   <td colspan=2>Dense (units=4)</td>
+                  <td>Batch size=512<br>
+                      Learning rate=1e-1<br>
+                      epochs=earlystopping(patience=3)
+                  </td>
             </tr>
             <tr>
                   <td rowspan=6>CNN</td>
                   <td colspan=2>Embedding (input_dim=30,000, output_dim=300, trainable=False) </td>
+                  <td rowspan=6>Batch size=64<br>
+                      Learning rate=1e-3<br>
+                      epochs=20
+                  </td>
             </tr>
             <tr>
                   <td colspan=2>
@@ -102,6 +111,10 @@ The dataset is already divided into: Training, Validation, Testing sets.
             <tr>
                   <td rowspan=4>BiLSTM</td>
                   <td colspan=2>Embedding (input_dim=20,000, output_dim=300, trainable=False) </td>
+                  <td rowspan=4>Batch size=128<br>
+                      Learning rate=6e-4<br>
+                      epochs=15
+                  </td>
             </tr>
             <tr>
                   <td colspan=2>Bidirectional( LSTM (units=32, activation=tanh, return_sequences=True) ) </td>
@@ -115,6 +128,10 @@ The dataset is already divided into: Training, Validation, Testing sets.
             <tr>
                   <td rowspan=5>CNN-BiLSTM</td>
                   <td colspan=2>Embedding (input_dim=30,000, output_dim=300, trainable=False) </td>
+                  <td rowspan=5>Batch size=64<br>
+                      Learning rate=6e-4<br>
+                      epochs=10
+                  </td>
             </tr>
             <tr>
                   <td colspan=2>
@@ -135,6 +152,10 @@ The dataset is already divided into: Training, Validation, Testing sets.
             <tr>
                   <td rowspan=7>BiLSTM-CNN</td>
                   <td colspan=2>Embedding (input_dim=20,000, output_dim=300, trainable=False) </td>
+                  <td rowspan=7>Batch size=128<br>
+                      Learning rate=6e-4<br>
+                      epochs=10
+                  </td>
             </tr>
             <tr>
                   <td colspan=2>Bidirectional( LSTM (units=32, activation=tanh, return_sequences=True) ) </td>
@@ -165,6 +186,10 @@ The dataset is already divided into: Training, Validation, Testing sets.
             <tr>
                   <td rowspan=4>Ensemble (CNN,BiLSTM</td>
                   <td colspan=2>Embedding (input_dim=30,000, output_dim=300, trainable=False) </td>
+                  <td rowspan=4>Batch size=128<br>
+                      Learning rate=9e-4<br>
+                      epochs=12
+                  </td>
             </tr>
             <tr>
                   <td>CNN</td>
