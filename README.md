@@ -231,7 +231,7 @@ volume = {46},
 pages = {69--92},
 year = {2024},
 url = {https://journal.homs-univ.edu.sy/index.php/Engineering/article/view/4682},
-author = {Mhrez, ali; Ramadan, Wassim, Abo Saleh, Naser},
+author = {Mhrez, ali; Ramadan, Wassim; Abo Saleh, Naser},
 keywords = {stance  detection, fake news, deep learning, natural language processing},
 }
 ```
