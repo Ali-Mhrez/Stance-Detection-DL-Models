@@ -1,6 +1,6 @@
 # Repository of the paper: [Evaluating the Performance of Deep Learning Models on the Task of Stance Detection Towards Fake News](https://journal.homs-univ.edu.sy/index.php/Engineering/article/view/4682)
 
-This repository contains the code for a research paper that evaluates several foundational deep learning architectures for stance detection in the context of fake news. The task involves classifying the relationship between a news article's body text and its headline into one of four categories: agree, disagree, discuss, or unrelated. We investigate the performance of various models, including MLP, CNN, BiLSTM, CNN-BiLSTM, BiLSTM-CNN, and an Ensemble of CNN and BiLSTM models.
+This repository contains the code for a research paper that evaluates several foundational deep learning architectures for stance detection in the context of fake news. The task involves classifying the relationship between a news article's body text and its headline into one of four categories: agree, disagree, discuss, or unrelated. We investigate the performance of various models, including MLP, CNN, BiLSTM, CNN-BiLSTM, BiLSTM-CNN, and an Ensemble of CNN and BiLSTM models. Full text can be found [here: pages 69-92](https://journal.homs-univ.edu.sy/index.php/Engineering/issue/view/758/690).
 
 ## Goal and Background
 Currently, there's a lack of research on how foundational deep learning models perform on the [AraStance](https://aclanthology.org/2021.nlp4if-1.9/) dataset. This makes it difficult to measure progress and establish a baseline for future studies.
