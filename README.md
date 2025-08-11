@@ -224,6 +224,7 @@ The dataset is already divided into: Training, Validation, Testing sets.
 ## Citation
 ```bash
 @article{amhrez-dl,
+author = {Mhrez, ali; Ramadan, Wassim; Abo Saleh, Naser},
 title = {Evaluating the Performance of Deep Learning Models on the Task of Stance Detection Towards Fake News},
 journal = {Journal of Homs Univeristy},
 Series = {Mechanical, Electrical and Information Engineering Sciences Series},
@@ -232,7 +233,6 @@ number = {1},
 pages = {69--92},
 year = {2024},
 url = {https://journal.homs-univ.edu.sy/index.php/Engineering/article/view/4682},
-author = {Mhrez, ali; Ramadan, Wassim; Abo Saleh, Naser},
 keywords = {stance  detection, fake news, deep learning, natural language processing},
 }
 ```
