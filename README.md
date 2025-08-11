@@ -1,120 +1,191 @@
-# Stance Detection Using Deep Learning Techniques
+# Repository of the paper: [Evaluating the Performance of Deep Learning Models on the Task of Stance Detection Towards Fake News](https://scholar.google.com/citations?view_op=view_citation&hl=en&user=muG0ZKIAAAAJ&citation_for_view=muG0ZKIAAAAJ:UeHWp8X0CEIC)
 
-This repository contains the code and results of experiments on stance detection using various deep learning models.
+This repository contains the code for a research paper that evaluates several foundational deep learning architectures for stance detection in the context of fake news. The task involves classifying the relationship between a news article's body text and its headline into one of four categories: agree, disagree, discuss, or unrelated. We investigate the performance of various models, including MLP, CNN, BiLSTM, CNN-BiLSTM, BiLSTM-CNN, and an Ensemble of CNN and BiLSTM models.
 
-## Models:
+## Goal and Background
+Currently, there's a lack of research on how foundational deep learning models perform on the [AraStance](https://aclanthology.org/2021.nlp4if-1.9/) dataset. This makes it difficult to measure progress and establish a baseline for future studies.
 
-* **Multi-Layer Perceptron (MLP)**
-* **Convolutional Neural Network (CNN)**
-* **Bidirectional Long Short-Term Memory (BiLSTM)**
-* **CNN-BiLSTM**
-* **BiLSTM-CNN**
-* **Ensemble Model (CNN + BiLSTM)**
+Our goal is to address this gap by investigating the performance of several key deep learning architectures—MLP, CNN, BiLSTM, CNN-BiLSTM, and BiLSTM-CNN—on this dataset. To enhance their performance, we've incorporated transfer learning using [AraVec](https://www.sciencedirect.com/science/article/pii/S1877050917321749) word vectors as model inputs. Additionally, we introduce an Ensemble model (CNN, BiLSTM) to further improve results and provide a comprehensive benchmark for this task.
 
-## Experiments:
-
-### Dataset:
-The experiments were conducted on Google Colab using a AraStance (Alhindi et al., [2021](https://aclanthology.org/2021.nlp4if-1.9/)) dataset.
-
-### Data Preprocessing:
-
-* **Data Splitting:** No need to divide the dataset into training, validation, and testing sets because it is already divided.
-* **Concatenation:** concatenate each claim article pair together to create an instance.
-
-#### Specific to MLP
-* **Text Cleaning:** remove stop words and punctuation.
-* **Vectorization**: using TF-IDF vectors.
-
-#### Specific to the other models
-* **Text Cleaning:** remove punctuation, diacritics, longation, unicode, and extra spaces.
-* **Numeric-to-Text Conversion**: convert numerics and percentages to texts.
-* **Normalization**: convert hamza أ إ آ to alif ا, alif maksura ى to ya ي, taa ة to haa ه.
-* **Vectorizaton**: using AraVec (Soliman et al., [2017](https://www.sciencedirect.com/science/article/pii/S1877050917321749)) word embeddings.
-
-### Model Architectures:
-
-* **Multi-Layer Perceptron (MLP):**
-
-      Dense(4)
-  
-* **Convolutional Neural Network (CNN):**
-
-      [Conv1D(100,2,relu,bias), Conv1D(100,3,relu,bias), Conv1d(100,4,relu,bias)] >
-      [  GlobalMaxPooling1D,      GlobalMaxPooling1D,      GlobalMaxPooling1D] >
-      Concatenation(axis=1) > Dropout(0.3) > Dense(4)
-
-* **Bidirectional Long Short-Term Memory (BiLSTM):** 
-
-      BiLSTM(32,return_sequences) > BiLSTM(32) > Dense(4)
-  
-* **CNN-BiLSTM:**
-
-      [Conv1D(100,2,relu,bias), Conv1D(100,3,relu,bias), Conv1d(100,4,relu,bias)] >
-      Concatenation(axis=1) > BiLSTM(32) > Dense(4)
-  
-* **BiLSTM-CNN:** 
-
-      BiLSTM(32,return_sequences) > BiLSTM(32,return_sequences) >
-      [Conv1D(50,2,relu,bias), Conv1D(50,3,relu,bias), Conv1d(50,4,relu,bias)] >
-      [ GlobalMaxPooling1D,     GlobalMaxPooling1D,     GlobalMaxPooling1D] >
-      Concatenation(axis=1) > Dense(4)
-  
-* **Ensemble Model (CNN + BiLSTM):** 
-
-      (logits from CNN + logits from BiLSTM) / 2
-
-### Evaluation Metrics:
-
-* **Accuracy:** the ratio of the number of correct predictions to the total number of predictions.
-* **F1-Score:** the harmonic mean of precision and recall.
-* **Macro F1-score:** average of per-class f1-scores.
-
-## Results and Analysis:
-
-The following results are averages over five runs for each experiment.
-
-### Validation Results
-
-| Model | Accuracy | Agree | Disagree | Discuss | Unrelated | Macro f1-score |
+## Dataset
+The [AraStance](https://aclanthology.org/2021.nlp4if-1.9/) dataset includes article bodies, headlines, and a corresponding class label. The label indicates the stance of the article body with respect to the headline. The article body can either Agree (AGR) or Disagree (DSG) with the headline, it can Discuss (DSC) it or be completely Unrelated (UNR).
+| Data Source | Data Type | Instances | AGR | DSG | DSC | UNR |
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|
-| Random classifier | 0.239 | 0.220 | 0.169 | 0.154 | 0.327 | 0.218 |
-| Majority classifier | 0.517 | 0.000 | 0.000 | 0.000 | 0.681 | 0.170 |
-| MLP | **0.781** | **0.760** | **0.738** | **0.513** | **0.846** | **0.714** |
-| CNN | 0.766 | 0.731 | 0.730 | 0.479 | 0.833 | 0.693 |
-| BiLSTM | 0.737 | 0.699 | 0.657 | 0.465 | 0.822 | 0.661 |
-| CNN-BiLSTM | 0.735 | 0.691 | 0.635 | 0.445 | 0.820 | 0.648 |
-| BiLSTM-CNN | 0.740 | 0.712 | 0.667 | 0.443 | 0.832 | 0.663 |
-| CNN+BiLSTM | 0.744 | 0.686 | 0.687 | 0.476 | 0.818 | 0.667 |
+| [paper repo](https://github.com/Tariq60/arastance) | News articles | 4,063 | 25.1% | 11.0% | 9.5% | 54.3% |
 
-### Testing Results
+## Data Preprocessing
+The dataset is already divided into: Training, Validation, Testing sets.
+<table>
+    <thead>
+        <tr>
+            <th>Step</th>
+            <th>Details</th>
+            <th>Models</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Concatenation</td>
+            <td>Headline + Article body</td>
+            <td>ALL</td>
+        </tr>
+        <tr>
+            <td rowspan=2>Cleaning</td>
+            <td>remove stop words and punctuation</td>
+            <td>MLP</td>
+        </tr>
+        <tr>
+            <td>remove punctuation, diacritics, longation, unicode, and extra spaces</td>
+            <td>All but MLP</td>
+        </tr>
+        <tr>
+            <td>Numeric-to-Text</td>
+            <td>convert numerics and percentages to texts</td>
+            <td>All but MLP</td>
+        </tr>
+        <tr>
+            <td>Normalization</td>
+            <td>convert hamza أ إ آ to alif ا, alif maksura ى to ya ي, taa ة to haa ه</td>
+            <td>All but MLP</td>
+        </tr>
+        <tr>
+            <td rowspan=2>Vectorizaton</td>
+            <td>TF-IDF vectors</td>
+            <td>MLP</td>
+        </tr>
+        <tr>
+            <td><a href="https://www.sciencedirect.com/science/article/pii/S1877050917321749">AraVec</a> embeddings</td>
+            <td>All but MLP</td>
+        </tr>
+    </tbody>
+</table>
 
-| Model | Accuracy | Agree | Disagree | Discuss | Unrelated | Macro f1-score |
-|:---|:---:|:---:|:---:|:---:|:---:|:---:|
-| Random classifier | 0.248 | 0.230 | 0.156 | 0.160 | 0.336 | 0.221 |
-| Majority classifier | 0.554 | 0.000 | 0.000 | 0.000 | 0.713 | 0.178 |
-| MLP | 0.824 | 0.818 | **0.767** | 0.425 | 0.886 | **0.724** |
-| CNN | **0.825** | **0.822** | 0.740 | 0.406 | **0.895** | 0.716 |
-| BiLSTM | 0.792 | 0.774 | 0.710 | 0.392 | 0.869 | 0.686 |
-| CNN-BiLSTM | 0.787 | 0.773 | 0.661 | 0.319 | 0.877 | 0.658 |
-| BiLSTM-CNN | 0.794 | 0.772 | 0.701 | **0.459** | 0.874 | 0.702 |
-| CNN+BiLSTM | 0.813 | 0.802 | 0.725 | 0.407 | 0.883 | 0.704 |
+## Models
 
-### Quick Analysis
+<table>
+      <thead>
+            <th>Model</th>
+            <th colspan=2>Layers</th>
+      </thead>
+      <tbody>
+            <tr>
+                  <td>MLP</td>
+                  <td colspan=2>Dense (units=4)</td>
+            </tr>
+            <tr>
+                  <td rowspan=6>CNN</td>
+                  <td colspan=2>Embedding (input_dim=30,000, output_dim=300, trainable=False) </td>
+            </tr>
+            <tr>
+                  <td colspan=2>
+                        Conv1D (filters=100, kernel_size=2, activation=relu, use_bias=True)<br>
+                        Conv1D (filters=100, kernel_size=3, activation=relu, use_bias=True)<br>
+                        Conv1D (filters=100, kernel_size=4, activation=relu, use_bias=True)
+                  </td>
+            </tr>
+            <tr>
+                  <td colspan=2>
+                        GlobalMaxPooling1D<br>
+                        GlobalMaxPooling1D<br>
+                        GlobalMaxPooling1D
+                  </td>
+            </tr>
+            <tr>
+                  <td colspan=2>Concatenation (axis=1)</td>
+            </tr>
+            <tr>
+                  <td colspan=2>Dropout (rate=0.3)</td>
+            </tr>
+            <tr>
+                  <td colspan=2>Dense (units=4)</td>
+            </tr>
+            <tr>
+                  <td rowspan=4>BiLSTM</td>
+                  <td colspan=2>Embedding (input_dim=20,000, output_dim=300, trainable=False) </td>
+            </tr>
+            <tr>
+                  <td colspan=2>Bidirectional( LSTM (units=32, activation=tanh, return_sequences=True) ) </td>
+            </tr>
+            <tr>
+                  <td colspan=2>Bidirectional( LSTM (units=32, activation=tanh, return_sequences=False) ) </td>
+            </tr>
+            <tr>
+                  <td colspan=2>Dense (units=4)</td>
+            </tr>
+            <tr>
+                  <td rowspan=5>CNN-BiLSTM</td>
+                  <td colspan=2>Embedding (input_dim=30,000, output_dim=300, trainable=False) </td>
+            </tr>
+            <tr>
+                  <td colspan=2>
+                        Conv1D (filters=100, kernel_size=2, activation=relu, use_bias=True)<br>
+                        Conv1D (filters=100, kernel_size=3, activation=relu, use_bias=True)<br>
+                        Conv1D (filters=100, kernel_size=4, activation=relu, use_bias=True)
+                  </td>
+            </tr>
+            <tr>
+                  <td colspan=2>Concatenation (axis=1)</td>
+            </tr>
+            <tr>
+                  <td colspan=2>Bidirectional( LSTM (units=32, activation=tanh, return_sequences=False) ) </td>
+            </tr>
+            <tr>
+                  <td colspan=2>Dense (units=4)</td>
+            </tr>
+            <tr>
+                  <td rowspan=7>BiLSTM-CNN</td>
+                  <td colspan=2>Embedding (input_dim=20,000, output_dim=300, trainable=False) </td>
+            </tr>
+            <tr>
+                  <td colspan=2>Bidirectional( LSTM (units=32, activation=tanh, return_sequences=True) ) </td>
+            </tr>
+            <tr>
+                  <td colspan=2>Bidirectional( LSTM (units=32, activation=tanh, return_sequences=True) ) </td>
+            </tr>
+            <tr>
+                  <td colspan=2>
+                        Conv1D (filters=50, kernel_size=2, activation=relu, use_bias=True)<br>
+                        Conv1D (filters=50, kernel_size=3, activation=relu, use_bias=True)<br>
+                        Conv1D (filters=50, kernel_size=4, activation=relu, use_bias=True)
+                  </td>
+            </tr>
+            <tr>
+                  <td colspan=2>
+                        GlobalMaxPooling1D<br>
+                        GlobalMaxPooling1D<br>
+                        GlobalMaxPooling1D
+                  </td>
+            </tr>
+            <tr>
+                  <td colspan=2>Concatenation (axis=1)</td>
+            </tr>
+            <tr>
+                  <td colspan=2>Dense (units=4)</td>
+            </tr>
+            <tr>
+                  <td rowspan=4>Ensemble (CNN,BiLSTM</td>
+                  <td colspan=2>Embedding (input_dim=30,000, output_dim=300, trainable=False) </td>
+            </tr>
+            <tr>
+                  <td>CNN</td>
+                  <td>BiLSTM</td>
+            </tr>
+            <tr>
+                  <td colspan=2>Add Logits</td>
+            </tr>
+            <tr>
+                  <td colspan=2>Dense (units=4)</td>
+            </tr>
+      </tbody>
+</table>
 
-* MLP achieves the highest macro F1-score across validation and testing sets.
-* CNN outperforms BiLSTM across both sets.
-* Combination models generally perform well, but do not outperform individual models.
-* All models struggle with the "Discuss" class, indicating a difficulty in distinguishing it from other classes.
+## Key Results
 
-## Future Work:
+1. We found that a simple perceptron model using TF-IDF vectors was more effective at stance classification than advanced LSTM and CNN models that utilized transfer learning. This suggests that explicit word cues are highly influential in this particular task.
+2. The LSTM models struggled to learn effective contextual representations, likely due to two key characteristics: the long document lengths and the input structure, which combines two distinct text chunks rather than a single, coherent piece of text.
+3. The document length and the two-chunk input format appear to be significant challenges for the tested models. Implementing attention techniques in future research could help models overcome these limitations by enabling them to selectively focus on the most important features for accurate classification.
 
-It is possible to further improve the performance of the models on this classification task by carefully considering the following:
-
-1. **Class Imbalance**: techniques like class weighting or oversampling could be explored to address this imbalance.
-2. **Hyperparameter Tuning**: Conduct a thorough hyperparameter search to optimize the performance of each model.
-3. **Transfer Learning**: Leverage pre-trained models from large language models or other relevant domains to improve performance.
-
-## Software/Libraries:
+## Requirements
 
 - Python 3.10.12
 - NumPy 1.26.4
@@ -124,3 +195,18 @@ It is possible to further improve the performance of the models on this classifi
 - Scikit-learn 1.5.2
 - Gensim 4.3.3
 - PyArabic 0.6.15
+
+## Citation
+```bash
+@article{amhrez-dl,
+title = {Evaluating the Performance of Deep Learning Models on the Task of Stance Detection Towards Fake News},
+journal = {Journal of Homs Univeristy},
+Series = {Mechanical, Electrical and Information Engineering Sciences Series},
+volume = {46},
+pages = {69--92},
+year = {2024},
+url = {https://journal.homs-univ.edu.sy/index.php/Engineering/article/view/4682},
+author = {Mhrez, ali; Ramadan, Wassim, Abo Saleh, Naser},
+keywords = {stance  detection, fake news, deep learning, natural language processing},
+}
+```
