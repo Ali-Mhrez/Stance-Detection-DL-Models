@@ -2,6 +2,8 @@
 
 This repository contains the code for a research paper that evaluates several foundational deep learning architectures for stance detection in the context of fake news. The task involves classifying the relationship between a news article's body text and its headline into one of four categories: agree, disagree, discuss, or unrelated. We investigate the performance of various models, including MLP, CNN, BiLSTM, CNN-BiLSTM, BiLSTM-CNN, and an Ensemble of CNN and BiLSTM models.
 
+This work corresponds to the 4th chapter of my PhD dissertation: [Stance Detection Toward Fake News Using Deep Learning Models](https://github.com/Ali-Mhrez/Dissertation/blob/main/dissertation.pdf), pages 53--64
+
 ## Goal and Background
 Currently, there's a lack of research on how foundational deep learning models perform on the [AraStance](https://aclanthology.org/2021.nlp4if-1.9/) dataset. This makes it difficult to measure progress and establish a baseline for future studies.
 
@@ -234,5 +236,18 @@ pages = {69--92},
 year = {2024},
 url = {https://journal.homs-univ.edu.sy/index.php/Engineering/article/view/4682},
 keywords = {stance  detection, fake news, deep learning, natural language processing},
+}
+```
+```bash
+@incollection{amhrez-cdl,
+author = {Mhrez, ali; Ramadan, Wassim; Abo Saleh, Naser},
+title = {Stance Detection Toward Fake News Using Deep Learning Models},
+booktitle = {Stance Detection in Natural Language Texts Using Deep Learning Techniques},
+publisher = {University of Homs},
+chapter = {4},
+pages = {53--64},
+year = {2024},
+url = {https://github.com/Ali-Mhrez/Dissertation},
+note = {This chapter is based on a dissertation submitted in partial fulfillment of the requirements for the degree of Doctor of Philosophy.}
 }
 ```
